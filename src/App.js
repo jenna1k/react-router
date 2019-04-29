@@ -1,37 +1,25 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+import { Route, BrowserRouter, Switch, NavLink } from 'react-router-dom';
 import "./App.css";
-
-import Quote from "./Quote";
+import Home from './Home';
+import History from './History';
 
 class App extends Component {
-  constructor(){
-    super()
-    this.state = {
-      working : true
-    };
-  }
-  handleClick = () => {
-    this.setState({ working: !this.state.working });
-  };
-  render() {
-    const img = this.state.working ? 'http://pngimg.com/uploads/simpsons/simpsons_PNG92.png' : 'https://i.dlpng.com/static/png/15389_thumb.png';
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className={this.state.working? "App-logo" : "App-logo-stop"} alt="logo" />
-          <button onClick={this.handleClick} className="btn">
-            SWITCH
-          </button>
-        <Quote
-          quote="I believe the children are the future... Unless we stop them now!"
-          character="Homer Simpson"
-          image={img}
-        />
-        </header>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <BrowserRouter>
+              <div>
+                <NavLink exact to="/" activeClassName="selected" activeStyle={{color: "red"}}> Home </NavLink>
+                <NavLink to="/our-history" activeClassName="selected" activeStyle={{color: "red"}}> History </NavLink>
+
+                <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route path="/our-history" component={History} />
+                </Switch>
+              </div>
+            </BrowserRouter>
+        );
+    }
 }
 
 export default App;
